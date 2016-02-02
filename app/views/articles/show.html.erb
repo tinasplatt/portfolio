@@ -1,0 +1,40 @@
+<div id="article">
+  <h2>
+    <%= @article.title %>
+  </h2>
+
+  <p>
+    <%= @article.text %>
+  </p>
+
+  <%= image_tag @article.attachment %>
+</div>
+
+<h2>Comments</h2>
+<p>There are <%= @article.comments.size %> comments.</p>
+
+<% @article.comments.each do |comment| %>
+      <p>
+        <strong>Commenter:</strong>
+        <%= comment.commenter %>
+      </p>
+
+      <p>
+        <strong>Comment:</strong>
+        <%= comment.body %>
+      </p>
+
+      <p>
+        <%= link_to 'Destroy Comment', [comment.article, comment],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %>
+      </p>
+<% end %>
+
+
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
